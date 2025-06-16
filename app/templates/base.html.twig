@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|default('en') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mobile.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="{{ asset('js/script.js') }}" defer></script>
+    <script src="{{ asset('js/panier.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>{% block title %}Guesthouse Terrabella - Kyrgyzstan{% endblock %}</title>
+</head>
+<body>
+    <header class="header">
+        <h2>Guesthouse</h2>
+        <h1>Terrabella</h1>
+        <h2>Welcome to Kyrgyzstan</h2>
+        <button class="burger" onclick="myFunction()" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="header-controls">
+            <button id="darkModeToggle" class="dark-mode-btn">🌙 Dark Mode</button>
+            <select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
+                <option value="en" {{ app.request.locale == 'en' ? 'selected' }}>English</option>
+                <option value="fr" {{ app.request.locale == 'fr' ? 'selected' }}>Français</option>
+                <option value="ru" {{ app.request.locale == 'ru' ? 'selected' }}>Русский</option>
+            </select>
+        </div>
+        <nav id="menu">
+            <ul>
+                <li><a href="{{ path('app_home') }}">Home</a></li>
+                <li><a href="{{ path('app_about') }}">About Us</a></li>
+                <li><a href="">Services</a></li>
+                <li><a href="">Create account</a></li>
+                <li><a href="">Login</a></li>
+                <li><a href="">Contact</a></li>
+                <li><a href="">Cart</a></li>
+            </ul>
+            <div class="hide-menu">
+                <button onclick="myFunction()">Close 🅇</button>
+            </div>
+        </nav>
+        <article class="hero">
+            <img class="image" src="{{ asset('img/loop Kyrgyzstan2_converted.jpg') }}" alt="Scenic view of Kyrgyzstan mountains">
+        </article>
+    </header>
+
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© 2023 Guesthouse Terrabella. All rights reserved.</p>
+        <p>For more information about our guesthouse and the services we offer, please visit our website or contact us directly.</p>
+        <p>📧 <span class="span">Email:</span> <a href="mailto:terrabella@guesthouse.kg">terrabella@guesthouse.kg</a></p>
+        <p>📞 <span class="span">Phone:</span> <a class="phone-link" href="tel:+996774060992">+996 774 06 09 92</a></p>
+        <p>📱 <span class="span">WhatsApp:</span> <a class="phone-link" href="https://wa.me/+996774060992">+996 774 06 09 92</a></p>
+        <p>🌍 <span class="span">Address:</span> 15 minutes from Bishkek, Kyrgyzstan <span class="span">street:</span> Baichechkei 103, Arashan, <span class="span">district:</span> Alamedine, <span class="span">city:</span> Bishkek</p>
+    </footer>
+</body>
+</html>
