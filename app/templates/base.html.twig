@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/mobile.css') }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="{{ asset('js/script.js') }}" defer></script>
-    <script src="{{ asset('js/panier.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>{% block title %}Guesthouse Terrabella - Kyrgyzstan{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="{{ asset('assets/js/script.js') }}" defer></script>
+    <script src="{{ asset('assets/js/panier.js') }}" defer></script>
+
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+    <title>
+        {% block title %}
+            Guesthouse Terrabella - Kyrgyzstan
+        {% endblock %}
+    </title>
 </head>
 <body>
     <header class="header">
@@ -29,23 +32,28 @@
                 <option value="fr" {{ app.request.locale == 'fr' ? 'selected' }}>Français</option>
                 <option value="ru" {{ app.request.locale == 'ru' ? 'selected' }}>Русский</option>
             </select>
+            <a href="{{ path('app_cart') }}" class="cart-icon" aria-label="View cart">
+                <span class="cart-symbol">🛒</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
         <nav id="menu">
             <ul>
                 <li><a href="{{ path('app_home') }}">Home</a></li>
                 <li><a href="{{ path('app_about') }}">About Us</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Create account</a></li>
-                <li><a href="">Login</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="">Cart</a></li>
+                <li><a href="{{ path('app_services') }}">Services</a></li>
+                <li><a href="{{ path('app_account') }}">Create account</a></li>
+                <li><a href="{{ path('app_login') }}">Login</a></li>
+                <li><a href="{{ path('app_contact') }}">Contact</a></li>
+                <li><a href="{{ path('app_cart') }}">Cart</a></li>
+                <li><a href="{{ path('app_categories') }}">Categories</a></li>
             </ul>
             <div class="hide-menu">
                 <button onclick="myFunction()">Close 🅇</button>
             </div>
         </nav>
         <article class="hero">
-            <img class="image" src="{{ asset('img/loop Kyrgyzstan2_converted.jpg') }}" alt="Scenic view of Kyrgyzstan mountains">
+            <img class="image" src="{{ asset('assets/img/loop Kyrgyzstan2_converted.jpg') }}" alt="Scenic view of Kyrgyzstan mountains">
         </article>
     </header>
 

@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guesthouse Terrabella - Create Account{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} <!-- Hérite des scripts de base.html.twig, incluant script.js -->
+    <script src="{{ asset('assets/js/createAcc.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="signup-section">
+            <header>
+                <h1>{% trans %}Create an Account{% endtrans %}</h1>
+                <p>{% trans %}Fill out the form below to register.{% endtrans %}</p>
+            </header>
+            <article>
+                {# <form action="{{ path('app_account_submit') }}" method="post" id="signup-form" novalidate> #}
+                    <fieldset>
+                        <legend>{% trans %}Personal Information{% endtrans %}</legend>
+                        <div class="form-group">
+                            <label for="first-name">{% trans %}First Name:{% endtrans %}</label>
+                            <input type="text" id="first-name" name="first-name" required aria-describedby="first-name-error">
+                            <span id="first-name-error" class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">{% trans %}Last Name:{% endtrans %}</label>
+                            <input type="text" id="last-name" name="last-name" required aria-describedby="last-name-error">
+                            <span id="last-name-error" class="error-message" aria-live="polite"></span>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>{% trans %}Login Information{% endtrans %}</legend>
+                        <div class="form-group">
+                            <label for="email">{% trans %}Email Address:{% endtrans %}</label>
+                            <input type="email" id="email" name="email" required aria-describedby="email-error">
+                            <span id="email-error" class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">{% trans %}Password:{% endtrans %}</label>
+                            <input type="password" id="password" name="password" required
+                                pattern="(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{12,}"
+                                aria-describedby="password-error password-help">
+                            <span id="password-help" class="help-text">{% trans %}The password must contain at least 12 characters, one uppercase letter, one number, and one symbol (!@#$%^&*).{% endtrans %}</span>
+                            <span id="password-error" class="error-message" aria-live="polite"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">{% trans %}Confirm Password:{% endtrans %}</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required
+                                aria-describedby="confirm-password-error">
+                            <span id="confirm-password-error" class="error-message" aria-live="polite"></span>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>{% trans %}Consent{% endtrans %}</legend>
+                        <div class="form-group">
+                            <label for="consent">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                {# {% trans %}I agree to the processing of my personal data in accordance with the{% endtrans %} <a href="{{ path('app_privacy_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>. #}
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="form-footer">
+                        <p>{% trans %}Already have an account?{% endtrans %}</p>
+                        <a href="{{ path('app_login') }}">{% trans %}Log in{% endtrans %}</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="button">{% trans %}Register{% endtrans %}</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
+{% endblock %}
