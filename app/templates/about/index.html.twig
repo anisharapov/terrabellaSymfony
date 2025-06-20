@@ -1,84 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Guesthouse Terrabella - About Us{% endblock %}
+{% block title %}Guesthouse Terrabella - About Us
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }} <!-- Hérite des styles de base.html.twig -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }} <!-- Hérite des scripts de base.html.twig -->
-    <script src="{{ asset('assets/js/about.js') }}" defer></script>
+	<script src="{{ asset('assets/js/about.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <main>
-        <section>
-            <h2>{% trans %}About Us{% endtrans %}</h2>
-            <article>
-                <p>{% trans %}
-                    The guest house «Terrabella» welcomes you in the heart of celestial mountain country – Kyrgyzstan. In the city of Arashan, 15 minutes driving from the capital Bishkek, close to the mountains with energizing fresh air. A serene mountain retreat nestled amidst the breathtaking natural beauty of the region. Emphasize its proximity to the majestic mountains, pristine landscapes, and the tranquil ambiance it offers to guests seeking an escape into nature’s embrace. Highlight the cozy accommodations with traditional Kyrgyz touches. The best place to make guided hikes, cultural immersions, or stargazing opportunities in the clear mountain skies.
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    We are a family-run guesthouse located in the heart of Kyrgyzstan. Our mission is to provide a warm and welcoming environment for all our guests.
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    Our guesthouse is surrounded by stunning mountains and beautiful landscapes, making it the perfect place to relax and unwind.
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    We offer a range of services to make your stay comfortable and enjoyable, including:
-                {% endtrans %}</p>
-                <span class="span">{% trans %}Services:{% endtrans %}</span>
-                <span class="span">
-                    <ul>
-                        <li>{% trans %}Comfortable accommodations{% endtrans %}</li>
-                        <li>{% trans %}Traditional Kyrgyz meals{% endtrans %}</li>
-                        <li>{% trans %}Guided tours and excursions{% endtrans %}</li>
-                        <li>{% trans %}Transportation services{% endtrans %}</li>
-                        <li>{% trans %}Free Wi-Fi{% endtrans %}</li>
-                        <li>{% trans %}24/7 customer support{% endtrans %}</li>
-                    </ul>
-                </span>
-                <p>{% trans %}
-                    Whether you are looking for adventure or relaxation, we have something for everyone. Our friendly staff is always on hand to help you plan your stay and make the most of your time in Kyrgyzstan.
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    We look forward to welcoming you to our guesthouse and sharing the beauty of Kyrgyzstan with you!
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    For more information about our guesthouse and the services we offer, please visit our website or contact us directly.
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    Thank you for considering us for your stay in Kyrgyzstan. We hope to see you soon!
-                {% endtrans %}</p>
-                <p>{% trans %}
-                    For more information about our guesthouse and the services we offer, please visit our website or contact us directly.
-                {% endtrans %}</p>
-            </article>
+	<main>
+		<section>
+			<h2>{% trans %}About Us{% endtrans %}</h2>
+			<article>
+				<p>{% trans %}
+					The guest house «Terrabella» welcomes you in the heart of celestial mountain country – Kyrgyzstan. In the city of Arashan, 15 minutes driving from the capital Bishkek, close to the mountains with energizing fresh air. A serene mountain retreat nestled amidst the breathtaking natural beauty of the region. Emphasize its proximity to the majestic mountains, pristine landscapes, and the tranquil ambiance it offers to guests seeking an escape into nature’s embrace. Highlight the cozy accommodations with traditional Kyrgyz touches. The best place to make guided hikes, cultural immersions, or stargazing opportunities in the clear mountain skies.
+					{% endtrans %}</p>
+				<p>{% trans %}
+					We are a family-run guesthouse located in the heart of Kyrgyzstan. Our mission is to provide a warm and welcoming environment for all our guests.
+					{% endtrans %}</p>
+				<p>{% trans %}
+					Our guesthouse is surrounded by stunning mountains and beautiful landscapes, making it the perfect place to relax and unwind.
+					{% endtrans %}</p>
+				<p>{% trans %}
+					We offer a range of services to make your stay comfortable and enjoyable, including:
+					{% endtrans %}</p>
+				<h3>{% trans %}Services:{% endtrans %}</h3>
+				<ul>
+					<li>{% trans %}Comfortable accommodations{% endtrans %}</li>
+					<li>{% trans %}Traditional Kyrgyz meals{% endtrans %}</li>
+					<li>{% trans %}Guided tours and excursions{% endtrans %}</li>
+					<li>{% trans %}Transportation services{% endtrans %}</li>
+					<li>{% trans %}Free Wi-Fi{% endtrans %}</li>
+					<li>{% trans %}24/7 customer support{% endtrans %}</li>
+				</ul>
+				<p>{% trans %}
+					Whether you are looking for adventure or relaxation, we have something for everyone. Our friendly staff is always on hand to help you plan your stay and make the most of your time in Kyrgyzstan.
+					{% endtrans %}</p>
+				<p>{% trans %}
+					We look forward to welcoming you to our guesthouse and sharing the beauty of Kyrgyzstan with you!
+					{% endtrans %}</p>
+				<p>{% trans %}
+					For more information about our guesthouse and the services we offer, please visit our website or contact us directly.
+					{% endtrans %}</p>
+				<p>{% trans %}
+					Thank you for considering us for your stay in Kyrgyzstan. We hope to see you soon!
+					{% endtrans %}</p>
+				<p>{% trans %}
+					For more information about our guesthouse and the services we offer, please visit our website or contact us directly.
+					{% endtrans %}</p>
+			</article>
 
-            <article>
-                <h3>{% trans %}Discover Kyrgyzstan:{% endtrans %}</h3>
-                <h2>{% trans %}The Heart of Central Asia{% endtrans %}</h2>
-                <p>{% trans %}
-                    Nestled in the majestic Tien Shan mountains, Kyrgyzstan is a hidden gem of Central Asia, offering breathtaking landscapes, rich nomadic heritage, and warm hospitality. Known as the "Switzerland of Central Asia," this landlocked country captivates travelers with its pristine alpine meadows, crystal-clear lakes, and rugged peaks. Natural Wonders Kyrgyzstan is a paradise for nature lovers and adventure seekers. Lake Issyk-Kul, one of the world’s largest alpine lakes, sparkles under the sun, surrounded by snow-capped mountains. The Alai region’s rolling pastures and the dramatic gorges of Jeti-Oguz offer unforgettable hiking and horseback riding experiences. For thrill-seekers, skiing in Karakol or trekking in the Ala-Archa National Park promises adrenaline and awe-inspiring views. Cultural Heritage Kyrgyzstan’s nomadic roots run deep, reflected in its vibrant traditions and way of life. Stay in a traditional yurt, savor authentic dishes like beshbarmak (a hearty meat and noodle dish), and witness the artistry of felt-making and eagle hunting. The annual World Nomad Games showcase Kyrgyzstan’s proud heritage with thrilling competitions like kok-boru, a traditional horseback sport. Why Visit Kyrgyzstan? Whether you’re chasing adventure, seeking cultural immersion, or yearning for tranquility, Kyrgyzstan delivers. Its untouched beauty, affordable travel, and visa-free access for many countries make it an ideal destination for explorers. From the bustling markets of Bishkek to the serene shores of Song-Kul Lake, Kyrgyzstan invites you to experience a world where tradition meets untouched wilderness. Plan Your Journey Ready to explore Kyrgyzstan? Our website offers tailored itineraries, travel tips, and local insights to help you craft an unforgettable adventure. Let Kyrgyzstan steal your heart—start your journey today!
-                {% endtrans %}</p>
-            </article>
+			<article>
+				<h3>{% trans %}Discover Kyrgyzstan:{% endtrans %}</h3>
+				<h2>{% trans %}The Heart of Central Asia{% endtrans %}</h2>
+				<p>{% trans %}
+					Nestled in the majestic Tien Shan mountains, Kyrgyzstan is a hidden gem of Central Asia, offering breathtaking landscapes, rich nomadic heritage, and warm hospitality. Known as the "Switzerland of Central Asia," this landlocked country captivates travelers with its pristine alpine meadows, crystal-clear lakes, and rugged peaks. Natural Wonders Kyrgyzstan is a paradise for nature lovers and adventure seekers. Lake Issyk-Kul, one of the world’s largest alpine lakes, sparkles under the sun, surrounded by snow-capped mountains. The Alai region’s rolling pastures and the dramatic gorges of Jeti-Oguz offer unforgettable hiking and horseback riding experiences. For thrill-seekers, skiing in Karakol or trekking in the Ala-Archa National Park promises adrenaline and awe-inspiring views. Cultural Heritage Kyrgyzstan’s nomadic roots run deep, reflected in its vibrant traditions and way of life. Stay in a traditional yurt, savor authentic dishes like beshbarmak (a hearty meat and noodle dish), and witness the artistry of felt-making and eagle hunting. The annual World Nomad Games showcase Kyrgyzstan’s proud heritage with thrilling competitions like kok-boru, a traditional horseback sport. Why Visit Kyrgyzstan? Whether you’re chasing adventure, seeking cultural immersion, or yearning for tranquility, Kyrgyzstan delivers. Its untouched beauty, affordable travel, and visa-free access for many countries make it an ideal destination for explorers. From the bustling markets of Bishkek to the serene shores of Song-Kul Lake, Kyrgyzstan invites you to experience a world where tradition meets untouched wilderness. Plan Your Journey Ready to explore Kyrgyzstan? Our website offers tailored itineraries, travel tips, and local insights to help you craft an unforgettable adventure. Let Kyrgyzstan steal your heart—start your journey today!
+					{% endtrans %}</p>
+			</article>
 
-            <div class="button">
-                <a href="{{ path('app_home') }}" class="home-link">{% trans %}Return to main page{% endtrans %}</a>
-            </div>
+			<div class="button">
+				<a href="{{ path('app_home') }}" class="home-link">{% trans %}Return to main page{% endtrans %}</a>
+			</div>
+			<article>
+				<h2>{% trans %}Location{% endtrans %}</h2>
+				<p>{% trans %}
+					We are located in the beautiful mountains of Kyrgyzstan, just a short drive from Bishkek. Our guesthouse is surrounded by stunning landscapes and offers a peaceful retreat for our guests.
+					{% endtrans %}</p>
+			</article>
 
-            <div class="location">
-                <h2>{% trans %}Location{% endtrans %}</h2>
-                <p>{% trans %}
-                    We are located in the beautiful mountains of Kyrgyzstan, just a short drive from Bishkek. Our guesthouse is surrounded by stunning landscapes and offers a peaceful retreat for our guests.
-                {% endtrans %}</p>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22249.594392953622!2d74.63339785259838!3d42.7240196302033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38994b00043b2377%3A0xab83fb071fd0f2fc!2sGuesthouse%20Terrabella!5e0!3m2!1sru!2skg!4v1746115674302!5m2!1sru!2skg"
-                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </section>
-    </main>
+			<div class="location">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22249.594392953622!2d74.63339785259838!3d42.7240196302033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38994b00043b2377%3A0xab83fb071fd0f2fc!2sGuesthouse%20Terrabella!5e0!3m2!1sru!2skg!4v1746115674302!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+		</section>
+	</main>
 {% endblock %}

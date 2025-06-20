@@ -15,12 +15,18 @@ class MainController extends AbstractController
             ['title' => 'Welcome to Terrabella', 'image' => 'img/helmets2_converted.jpg', 'alt' => 'Motorcycle helmets'],
             ['title' => 'King size bedroom', 'image' => 'img/Room 1.jpg', 'alt' => 'King size bedroom'],
             ['title' => 'Smart gym', 'image' => 'img/gym left.jpg', 'alt' => 'Gym equipment'],
+            ['title' => 'Veranda', 'image' => 'img/veranda 1.jpg', 'alt' => 'Guesthouse veranda'],
+            ['title' => 'Coffee corner', 'image' => 'img/coffee spoons_converted.jpg', 'alt' => 'Coffee corner setup'],
+            ['title' => 'Library', 'image' => 'img/library_converted.jpg', 'alt' => 'Library with books'],
+            ['title' => 'Confortable office', 'image' => 'img/bureau table.jpg', 'alt' => 'Office desk'],
+            ['title' => 'Conference room for 12 persons', 'image' => 'img/conference table_converted.jpg', 'alt' => 'Conference room'],
+            ['title' => 'Tasty dinner and breakfast', 'image' => 'img/table wine.jpg', 'alt' => 'Dining table with food'],
         ];
 
         $rooms = [
             [
                 'title' => 'KING SIZE ROOM',
-                'description' => 'Book a king size room 2,20 meter large with a Orthopedic Mattress',
+                'description' => 'Book a king size room 2,20 meter large with an Orthopedic Mattress',
                 'image' => 'img/Room 1.jpg',
                 'alt' => 'King size bedroom',
                 'prices' => ['From 99$ per night'],

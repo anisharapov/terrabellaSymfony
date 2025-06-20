@@ -3,22 +3,22 @@
 {% block title %}Guesthouse Terrabella - Cart{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }} <!-- Hérite des styles de base.html.twig -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }} <!-- Hérite des scripts de base.html.twig, incluant script.js -->
-    <script src="{{ asset('assets/js/card.js') }}" defer></script>
+    <script>
+        // Définir la route de paiement côté serveur
+        const paymentUrl = '{{ path('app_payment') }}';
+    </script>
+    <script src="{{ asset('assets/js/cart.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
     <main>
         <section class="section cart-section">
             <h2>{% trans %}Your Cart{% endtrans %}</h2>
-            <div id="cart-items">
-                <!-- Cart items will be dynamically inserted here -->
-            </div>
+            <div id="cart-items"><!-- Cart items will be dynamically inserted here --></div>
             <div id="cart-total">
                 <p>{% trans %}Total:{% endtrans %} $<span id="total-price">0</span></p>
             </div>

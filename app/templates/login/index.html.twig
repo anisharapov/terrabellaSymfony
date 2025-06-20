@@ -2,27 +2,40 @@
 
 {% block title %}Guesthouse Terrabella - Login{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/script.js') }}" defer></script>
+{% endblock %}
+
 {% block body %}
     <main>
         <article>
             <h3>{% trans %}Login to Your Account{% endtrans %}</h3>
-            <form action="{{ path('app_login_submit') }}" method="post" class="form">
-                <label for="email">{% trans %}Email:{% endtrans %}</label>
-                <input type="email" id="email" name="email" required>
+            <form action="{{ path('app_login_submit') }}" method="post" class="form" id="login-form" novalidate>
+                <div class="form-group">
+                    <label for="email">{% trans %}Email:{% endtrans %}</label>
+                    <input type="email" id="email" name="email" required>
+                    <span id="email-error" class="error-message" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">{% trans %}Password:{% endtrans %}</label>
+                    <input type="password" id="password" name="password" required>
+                    <span id="password-error" class="error-message" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label for="consent">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        {% trans %}I consent to the processing of my personal data for subscription purposes, as outlined in the{% endtrans %} <a href="{{ path('app_privacy_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>.
+                    </label>
+                    <span id="consent-error" class="error-message" aria-live="polite"></span>
+                </div>
+                <button type="submit" class="book-button">{% trans %}Login{% endtrans %}</button>
 
-                <label for="password">{% trans %}Password:{% endtrans %}</label>
-                <input type="password" id="password" name="password" required>
-
-                <label for="consent">
-                    <input type="checkbox" id="consent" name="consent" required>
-                    {# {% trans %}I consent to the processing of my personal data for subscription purposes, as outlined in the{% endtrans %} <a href="{{ path('app_privacy_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>. #}
-                </label>
-
-                <button type="submit">{% trans %}Login{% endtrans %}</button>
-
-                <p>{% trans %}Don't have an account?{% endtrans %} <a href="{{ path('app_register') }}">{% trans %}Sign up here{% endtrans %}</a></p>
-                {# <p>{% trans %}Forgot your password?{% endtrans %} <a href="{{ path('app_reset') }}">{% trans %}Reset it here{% endtrans %}</a></p> #}
-                {# <p>{% trans %}By logging in, you agree to our{% endtrans %} <a href="{{ path('app_terms_of_service') }}" target="_blank">{% trans %}Terms of Service{% endtrans %}</a>.</p> #}
+                <p>{% trans %}Don't have an account?{% endtrans %} <a href="{{ path('app_account') }}" class="button-link">{% trans %}Sign up here{% endtrans %}</a></p>
+                <p>{% trans %}Forgot your password?{% endtrans %} <a href="{{ path('app_reset') }}">{% trans %}Reset it here{% endtrans %}</a></p> 
             </form>
         </article>
     </main>

@@ -21,4 +21,10 @@ final class LoginController extends AbstractController
         // Exemple : authentification et redirection après succès
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/privacy-policy', name: 'app_privacy_policy')]
+    public function privacyPolicy(): Response
+    {
+        return $this->render('privacy_policy/index.html.twig');
+    }
 }
