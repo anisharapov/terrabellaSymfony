@@ -28,6 +28,18 @@ class Offerings
     #[ORM\ManyToMany(targetEntity: Services::class, inversedBy: 'offerings')]
     private Collection $services;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $alt = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $button_text = null;
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -82,6 +94,54 @@ class Offerings
     public function removeService(Services $service): static
     {
         $this->services->removeElement($service);
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): static
+    {
+        $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function getButtonText(): ?string
+    {
+        return $this->button_text;
+    }
+
+    public function setButtonText(string $button_text): static
+    {
+        $this->button_text = $button_text;
 
         return $this;
     }

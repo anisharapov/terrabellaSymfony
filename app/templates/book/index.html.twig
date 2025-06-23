@@ -10,6 +10,13 @@
     <script>
         // Définir l'URL de paiement générée par Twig
         const paymentUrl = '{{ path('app_payment') }}';
+        // Passer les données dynamiques depuis le contrôleur
+        const offering = {
+            id: {{ offering.id }},
+            price: {{ offering.price }}, // Prix brut (ex. 99.00, 149.00, 39.00)
+            isMonthly: {{ offering.isMonthly ? 'true' : 'false' }}, // Booléen pour type de calcul
+            name: '{{ offering.name|escape('js') }}' // Nom de l'offre (ex. "King size bedroom")
+        };
     </script>
     <script src="{{ asset('assets/js/book.js') }}" defer></script>
 {% endblock %}
@@ -51,7 +58,7 @@
                     <span id="selectedDateRange">{% trans %}Please select dates{% endtrans %}</span>
                 </p>
                 <p id="nightsDisplay" class="hidden">
-                    <strong>{% trans %}Total Nights:{% endtrans %}</strong>
+                    <strong>{% trans %}Total Nights/Months:{% endtrans %}</strong>
                     <span id="nightsCount"></span>
                 </p>
                 <p id="priceDisplay" class="hidden">

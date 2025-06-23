@@ -25,20 +25,21 @@
 		</article>
 	</section>
 
+
 	<!-- Section Rooms -->
 	<section>
 		{% for room in rooms %}
 			<article class="room">
-				<h2>{{ room.title|trans }}</h2>
+				<h2>{{ room.name|trans }}</h2>
 				<p>{{ room.description|trans }}</p>
-				<img src="{{ asset('assets/' ~ room.image) }}" alt="{{ room.alt|trans }}">
+				<img src="{{ asset('assets/img/' ~ room.image) }}" alt="{{ room.alt|trans }}">
 				<div class="price">
-					{% for price in room.prices %}
-						<p>{{ price|trans }}</p>
-					{% endfor %}
+					<p> {{ room.alt }} {{ room.price }}$
+						
+					</p>
 				</div>
 				<div class="button">
-					<a href="{{ path('app_book') }}" class="home-link">{% trans %}CHECK THE AVAILABILITY{% endtrans %}</a>
+					<a href="{{ path('app_book', { id: room.id }) }}" class="home-link">{% trans %}CHECK THE AVAILABILITY{% endtrans %}</a>
 				</div>
 			</article>
 		{% endfor %}

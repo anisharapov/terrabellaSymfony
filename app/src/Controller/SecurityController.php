@@ -14,4 +14,5 @@ class SecurityController extends AbstractController
         // Logique de réinitialisation (par exemple, formulaire de demande de réinitialisation)
         return $this->render('security/reset.html.twig');
     }
+    
 }
