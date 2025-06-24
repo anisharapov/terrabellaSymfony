@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Offerings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-final class BookController extends AbstractController
+class BookController extends AbstractController
 {
-    #[Route('/book', name: 'app_book')]
-    public function book(): Response
+
+    #[Route('/book/{id}', name: 'app_book', requirements: ['id' => '\d+'])]
+    public function book(Offerings $offering): Response
     {
+
         return $this->render('book/index.html.twig', [
-            'controller_name' => 'BookController',
+            'offering' => $offering, // Passer les données mappées
         ]);
     }
 }

@@ -14,9 +14,9 @@
         const offering = {
             id: {{ offering.id }},
             price: {{ offering.price }}, // Prix brut (ex. 99.00, 149.00, 39.00)
-            isMonthly: {{ offering.isMonthly ? 'true' : 'false' }}, // Booléen pour type de calcul
             name: '{{ offering.name|escape('js') }}' // Nom de l'offre (ex. "King size bedroom")
         };
+        let pricePerUnit = {{ offering.price }}; // Prix par unité (nuit ou mois)
     </script>
     <script src="{{ asset('assets/js/book.js') }}" defer></script>
 {% endblock %}
