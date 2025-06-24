@@ -24,8 +24,6 @@ class Categories
     #[ORM\OneToMany(targetEntity: Services::class, mappedBy: 'categories')]
     private Collection $services;
 
-    #[ORM\Column(length: 100)]
-    private ?string $managerCategories = null;
 
     public function __construct()
     {
@@ -79,15 +77,4 @@ class Categories
         return $this;
     }
 
-    public function getManagerCategories(): ?string
-    {
-        return $this->managerCategories;
-    }
-
-    public function setManagerCategories(string $managerCategories): static
-    {
-        $this->managerCategories = $managerCategories;
-
-        return $this;
-    }
 }
