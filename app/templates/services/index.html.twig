@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	<!-- Hérite des scripts de base.html.twig, incluant script.js -->
+	<script src="{{ asset('assets/js/script.js') }}" defer></script>
 {% endblock %}
+
 
 {% block body %}
 	<main>
@@ -68,7 +68,7 @@
 				<p>{% trans %}
 					Host productive meetings or events in the conference room, designed to seat 12 people. Equipped with modern technology, it’s ideal for business retreats, workshops, or team-building sessions, all set against the inspiring backdrop of Kyrgyzstan’s celestial mountains.
 					{% endtrans %}</p>
-				<img src="{{ asset('assets/img/conference table_converted.jpg') }}" alt="{% trans %}conference room{% endtrans %}">
+				<img src="{{ asset('assets/img/conference.jpg') }}" alt="{% trans %}conference room{% endtrans %}">
 			</article>
 
 			<article>
@@ -76,7 +76,7 @@
 				<p>{% trans %}
 					Stay active in the state-of-the-art smart gym, featuring cutting-edge fitness equipment to keep you energized during your stay. Whether you’re a fitness enthusiast or just want a quick workout, the gym caters to all levels.
 					{% endtrans %}</p>
-				<img src="{{ asset('assets/img/gym right.jpg') }}" alt="">
+				<img src="{{ asset('assets/img/gym_left.jpg') }}" alt="">
 			</article>
 			<article>
 				<h3>{% trans %}Dining Experience{% endtrans %}</h3>

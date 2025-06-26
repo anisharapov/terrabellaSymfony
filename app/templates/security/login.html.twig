@@ -1,38 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}
+	Log in!
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/login.js') }}" defer></script>
+{% endblock %}
 
 {% block body %}
-    <form method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+	<main>
+		<article>
+			<h3>{% trans %}Login to Your Account{% endtrans %}</h3>
+			<form method="post" action="{{ path('app_login') }}" class="form" id="login-form" novalidate>
+				{% if error %}
+					<div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-            </div>
-        {% endif %}
+				{% if app.user %}
+					<div class="form-group">
+						<p>You are logged in as
+							{{ app.user.userIdentifier }},
+							<a href="{{ path('app_logout') }}">Logout</a>
+						</p>
+					</div>
+				{% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+				<div class="form-group">
+					<label for="username">{% trans %}Email:{% endtrans %}</label>
+					<input type="email" value="{{ last_username }}" name="_username" id="username" required>
+					<span id="email-error" class="error-message" aria-live="polite"></span>
+				</div>
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+				<div class="form-group">
+					<label for="password">{% trans %}Password:{% endtrans %}</label>
+					<input type="password" name="_password" id="password" required>
+					<span id="password-error" class="error-message" aria-live="polite"></span>
+				</div>
 
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
+				<div class="form-group checkbox">
+					<label for="consent">
+						<input type="checkbox" id="consent" name="consent" required>
+						{% trans %}I consent to the processing of my personal data for subscription purposes, as outlined in the{% endtrans %}
+						<a href="{{ path('app_privacy_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>.
+					</label>
+					<span id="consent-error" class="error-message" aria-live="polite"></span>
+				</div>
 
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-    </form>
-{% endblock %}
+				<div class="form-buttons">
+					<button type="submit" class="book-link" disabled>{% trans %}Login{% endtrans %}</button>
+				</div>
+
+				<div>{% trans %}Don't have an account?{% endtrans %}
+					<a href="{{ path('app_account') }}" class="button-link">{% trans %}Sign up here{% endtrans %}</a>
+				</div>
+				<div>{% trans %}Forgot your password?{% endtrans %}
+					<a href="{{ path('app_reset') }}" class="button-link">{% trans %}Reset it here{% endtrans %}</a>
+				</div>
+			</form>
+		</main>
+	{% endblock %}
