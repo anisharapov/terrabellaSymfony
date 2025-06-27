@@ -8,54 +8,69 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\HasLifecycleCallbacks]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
     /**
-     * @var list<string> The user roles
+     * @var array<string> The user roles
      */
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 100)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column(options:['default'=>'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(options:['default'=>'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $last_connection_at = null;
 
-    /**
-     * @var Collection<int, Bookings>
-     */
-    #[ORM\OneToMany(targetEntity: Bookings::class, mappedBy: 'users')]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $resetTokenExpiresAt = null;
+
+    #[ORM\OneToMany(targetEntity: Bookings::class, mappedBy: 'user')]
     private Collection $bookings;
 
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -70,46 +85,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -117,17 +114,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -138,7 +130,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
@@ -150,7 +141,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
-
         return $this;
     }
 
@@ -162,7 +152,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
@@ -171,41 +160,87 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->last_connection_at;
     }
 
-    public function setLastConnectionAt(\DateTimeImmutable $last_connection_at): static
+    public function setLastConnectionAt(?\DateTimeImmutable $last_connection_at): static
     {
         $this->last_connection_at = $last_connection_at;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Bookings>
-     */
-    public function getBookings(): Collection
+    public function getResetToken(): ?string
     {
-        return $this->bookings;
+        return $this->resetToken;
     }
 
+    public function setResetToken(?string $resetToken): static
+    {
+        $this->resetToken = $resetToken;
+        return $this;
+    }
+
+    public function getResetTokenExpiresAt(): ?\DateTimeImmutable
+    {
+        return $this->resetTokenExpiresAt;
+    }
+
+    public function setResetTokenExpiresAt(?\DateTimeImmutable $resetTokenExpiresAt): static
+    {
+        $this->resetTokenExpiresAt = $resetTokenExpiresAt;
+        return $this;
+    }
+
+    public function isResetTokenValid(): bool
+    {
+        return $this->resetTokenExpiresAt !== null &&
+            $this->resetTokenExpiresAt > new \DateTimeImmutable();
+    }
+
+    /**
+     * Adds a booking to this user.
+     * 
+     * @param Bookings $booking The booking to add
+     * @return $this
+     * @throws \InvalidArgumentException If the booking is null
+     */
     public function addBooking(Bookings $booking): static
     {
+        if ($booking === null) {
+            throw new \InvalidArgumentException('Booking cannot be null');
+        }
+
         if (!$this->bookings->contains($booking)) {
             $this->bookings->add($booking);
-            $booking->setUsers($this);
+            // Set the owning side of the relation
+            $booking->setUser($this);
         }
 
         return $this;
     }
 
+    /**
+     * Removes a booking from this user.
+     * 
+     * @param Bookings $booking The booking to remove
+     * @return $this
+     * @throws \InvalidArgumentException If the booking is null
+     */
     public function removeBooking(Bookings $booking): static
     {
+        if ($booking === null) {
+            throw new \InvalidArgumentException('Booking cannot be null');
+        }
+
         if ($this->bookings->removeElement($booking)) {
-            // set the owning side to null (unless already changed)
-            if ($booking->getUsers() === $this) {
-                $booking->setUsers(null);
+            // Clean up the owning side if needed
+            if ($booking->getUser() === $this) {
+                $booking->setUser(null);
             }
         }
 
         return $this;
     }
 
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
