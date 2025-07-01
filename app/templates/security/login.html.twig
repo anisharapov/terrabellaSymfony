@@ -8,10 +8,6 @@
 	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 {% endblock %}
 
-{% block javascripts %}
-	<script src="{{ asset('assets/js/login.js') }}" defer></script>
-{% endblock %}
-
 {% block body %}
 	<main>
 		<article>
@@ -42,24 +38,16 @@
 					<span id="password-error" class="error-message" aria-live="polite"></span>
 				</div>
 
-				<div class="form-group checkbox">
-					<label for="consent">
-						<input type="checkbox" id="consent" name="consent" required>
-						{% trans %}I consent to the processing of my personal data for subscription purposes, as outlined in the{% endtrans %}
-						<a href="{{ path('app_privacy_policy') }}" target="_blank">{% trans %}Privacy Policy{% endtrans %}</a>.
-					</label>
-					<span id="consent-error" class="error-message" aria-live="polite"></span>
-				</div>
-
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 				<div class="form-buttons">
-					<button type="submit" class="book-link" disabled>{% trans %}Login{% endtrans %}</button>
+					<button type="submit" class="book-link">{% trans %}Login{% endtrans %}</button>
 				</div>
 
 				<div>{% trans %}Don't have an account?{% endtrans %}
 					<a href="{{ path('app_account') }}" class="button-link">{% trans %}Sign up here{% endtrans %}</a>
 				</div>
 				<div>{% trans %}Forgot your password?{% endtrans %}
-					<a href="{{ path('app_reset') }}" class="button-link">{% trans %}Reset it here{% endtrans %}</a>
+					<a href="{{ path('app_reset_password_request') }}" class="button-link">{% trans %}Reset it here{% endtrans %}</a>
 				</div>
 			</form>
 		</main>

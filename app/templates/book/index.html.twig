@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Guesthouse Terrabella - Reservation
+	Guesthouse Terrabella - Reservation
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
 {% endblock %}
 
 {% block javascripts %}
@@ -20,115 +20,115 @@
         };
         let pricePerUnit = {{ offering.price }}; // Prix par unité (nuit ou mois)
     </script>
-
     <script src="{{ asset('assets/js/book.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <main class="sections-container">
-        <!-- Calendar Section -->
-        <section class="calendar-section" aria-labelledby="calendar-heading">
-            <header class="calendar-header">
-                <button id="prevMonth" class="calendar-nav" aria-label="{% trans %}Previous month{% endtrans %}">◀</button>
-                <h2 id="currentMonth" aria-live="polite">{{ "now"|date('F Y')|trans }}</h2>
-                <button id="nextMonth" class="calendar-nav" aria-label="{% trans %}Next month{% endtrans %}">▶</button>
-            </header>
+	<main
+		class="sections-container">
+		<!-- Calendar Section -->
+		<section class="calendar-section" aria-labelledby="calendar-heading">
+			<header class="calendar-header">
+				<button id="prevMonth" class="calendar-nav" aria-label="{% trans %}Previous month{% endtrans %}">◀</button>
+				<h2 id="currentMonth" aria-live="polite">{{ "now"|date('F Y')|trans }}</h2>
+				<button id="nextMonth" class="calendar-nav" aria-label="{% trans %}Next month{% endtrans %}">▶</button>
+			</header>
 
-            <div class="weekdays" role="row">
-                <div role="columnheader">{% trans %}Sun{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Mon{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Tue{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Wed{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Thu{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Fri{% endtrans %}</div>
-                <div role="columnheader">{% trans %}Sat{% endtrans %}</div>
-            </div>
+			<div class="weekdays" role="row">
+				<div role="columnheader">{% trans %}Sun{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Mon{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Tue{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Wed{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Thu{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Fri{% endtrans %}</div>
+				<div role="columnheader">{% trans %}Sat{% endtrans %}</div>
+			</div>
 
-            <div id="calendar" class="calendar-grid" role="grid" aria-labelledby="calendar-heading"></div>
-            <header class="calendar-header" id="calendar2-header" style="display: none;">
-                <h2 id="currentMonth2" aria-live="polite"></h2>
-            </header>
-            <div id="calendar2" class="calendar-grid hidden" role="grid" aria-labelledby="calendar2-heading"></div>
-        </section>
+			<div id="calendar" class="calendar-grid" role="grid" aria-labelledby="calendar-heading"></div>
+			<header class="calendar-header" id="calendar2-header" style="display: none;">
+				<h2 id="currentMonth2" aria-live="polite"></h2>
+			</header>
+			<div id="calendar2" class="calendar-grid hidden" role="grid" aria-labelledby="calendar2-heading"></div>
+		</section>
 
-        <!-- Reservation Form Section -->
-        <section id="reservationFormSection" class="reservation-form-section section hidden" aria-labelledby="reservation-heading">
-            <h2 id="reservation-heading">{% trans %}Finalize Your Reservation{% endtrans %}</h2>
+		<!-- Reservation Form Section -->
+		<section id="reservationFormSection" class="reservation-form-section section hidden" aria-labelledby="reservation-heading">
+			<h2 id="reservation-heading">{% trans %}Finalize Your Reservation{% endtrans %}</h2>
 
-            <article class="date-range-info" aria-live="polite">
-                <p id="selectedDateDisplay">
-                    <strong>{% trans %}Selected Period:{% endtrans %}</strong>
-                    <span id="selectedDateRange">{% trans %}Please select dates{% endtrans %}</span>
-                </p>
-                <p id="nightsDisplay" class="hidden">
-                    <strong>{% trans %}Total Nights/Months:{% endtrans %}</strong>
-                    <span id="nightsCount"></span>
-                </p>
-                <p id="priceDisplay" class="hidden">
-                    <strong>{% trans %}Total Price:{% endtrans %}</strong>
-                    <span id="totalPrice"></span>
-                </p>
-            </article>
+			<article class="date-range-info" aria-live="polite">
+				<p id="selectedDateDisplay">
+					<strong>{% trans %}Selected Period:{% endtrans %}</strong>
+					<span id="selectedDateRange">{% trans %}Please select dates{% endtrans %}</span>
+				</p>
+				<p id="nightsDisplay" class="hidden">
+					<strong>{% trans %}Total Nights/Months:{% endtrans %}</strong>
+					<span id="nightsCount"></span>
+				</p>
+				<p id="priceDisplay" class="hidden">
+					<strong>{% trans %}Total Price:{% endtrans %}</strong>
+					<span id="totalPrice"></span>
+				</p>
+			</article>
 
-            <form id="reservationForm">
-                <fieldset class="form-group">
-                    <label for="firstName">{% trans %}First Name{% endtrans %}*</label>
-                    <input type="text" id="firstName" name="firstName" required aria-required="true">
-                    <span id="firstNameError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+			<form id="reservationForm">
+				<fieldset class="form-group">
+					<label for="firstName">{% trans %}First Name{% endtrans %}*</label>
+					<input type="text" id="firstName" name="firstName" required aria-required="true">
+					<span id="firstNameError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <fieldset class="form-group">
-                    <label for="lastName">{% trans %}Last Name{% endtrans %}*</label>
-                    <input type="text" id="lastName" name="lastName" required aria-required="true">
-                    <span id="lastNameError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+				<fieldset class="form-group">
+					<label for="lastName">{% trans %}Last Name{% endtrans %}*</label>
+					<input type="text" id="lastName" name="lastName" required aria-required="true">
+					<span id="lastNameError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <fieldset class="form-group">
-                    <label for="email">{% trans %}Email Address{% endtrans %}*</label>
-                    <input type="email" id="email" name="email" required aria-required="true">
-                    <span id="emailError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+				<fieldset class="form-group">
+					<label for="email">{% trans %}Email Address{% endtrans %}*</label>
+					<input type="email" id="email" name="email" required aria-required="true">
+					<span id="emailError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <fieldset class="form-group">
-                    <label for="phone">{% trans %}Phone Number{% endtrans %}*</label>
-                    <input type="tel" id="phone" name="phone" required aria-required="true">
-                    <span id="phoneError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+				<fieldset class="form-group">
+					<label for="phone">{% trans %}Phone Number{% endtrans %}*</label>
+					<input type="tel" id="phone" name="phone" required aria-required="true">
+					<span id="phoneError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <fieldset class="form-group">
-                    <label for="password">{% trans %}Password{% endtrans %}*</label>
-                    <input type="password" id="password" name="password" required aria-required="true">
-                    <span id="passwordError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+				<fieldset class="form-group">
+					<label for="password">{% trans %}Password{% endtrans %}*</label>
+					<input type="password" id="password" name="password" required aria-required="true">
+					<span id="passwordError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <fieldset class="form-group checkbox">
-                    <input type="checkbox" id="gdpr" name="gdpr" required aria-required="true">
-                    <label for="gdpr">{% trans %}I accept the processing of my personal data in accordance with GDPR{% endtrans %}*</label>
-                    <span id="gdprError" class="error-message" aria-live="polite"></span>
-                </fieldset>
+				<fieldset class="form-group checkbox">
+					<input type="checkbox" id="gdpr" name="gdpr" required aria-required="true">
+					<label for="gdpr">{% trans %}I accept the processing of my personal data in accordance with GDPR{% endtrans %}*</label>
+					<span id="gdprError" class="error-message" aria-live="polite"></span>
+				</fieldset>
 
-                <div class="form-buttons">
-                    <button type="submit" id="bookButton" class="home-link" disabled>{% trans %}Book{% endtrans %}</button>
-                    <button type="button" id="addToCartButton" class="home-link" disabled onclick="addToCart()">{% trans %}Add to Cart{% endtrans %}</button>
-                </div>
+				<div class="form-buttons">
+					<button type="submit" id="bookButton" class="home-link" disabled>{% trans %}Book{% endtrans %}</button>
+					<button type="button" id="addToCartButton" class="home-link" disabled onclick="addToCart()">{% trans %}Add to Cart{% endtrans %}</button>
+				</div>
 
-                <div class="button">
-                    <a href="{{ path('app_login') }}" class="home-link">{% trans %}Already have an account?{% endtrans %}</a>
-                </div>
-            </form>
-        </section>
+				<div class="button">
+					<a href="{{ path('app_login') }}" class="home-link">{% trans %}Already have an account?{% endtrans %}</a>
+				</div>
+			</form>
+		</section>
 
-        <!-- Location Section -->
-        <section class="location section" aria-labelledby="location-heading">
-            <h2 id="location-heading">{% trans %}Our location{% endtrans %}</h2>
-            <p>{% trans %}
-                We are located in the beautiful mountains of Kyrgyzstan, just a short drive from Bishkek. Our guesthouse is surrounded by stunning landscapes and offers a peaceful retreat for our guests.
-                {% endtrans %}</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22249.594392953622!2d74.63339785259838!3d42.7240196302033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38994b00043b2377%3A0xab83fb071fd0f2fc!2sGuesthouse%20Terrabella!5e0!3m2!1sru!2skg!4v1746115674302!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{% trans %}Map of our location{% endtrans %}"></iframe>
-        </section>
-    </main>
+		<!-- Location Section -->
+		<section class="location section" aria-labelledby="location-heading">
+			<h2 id="location-heading">{% trans %}Our location{% endtrans %}</h2>
+			<p>{% trans %}
+				We are located in the beautiful mountains of Kyrgyzstan, just a short drive from Bishkek. Our guesthouse is surrounded by stunning landscapes and offers a peaceful retreat for our guests.
+				{% endtrans %}</p>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22249.594392953622!2d74.63339785259838!3d42.7240196302033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38994b00043b2377%3A0xab83fb071fd0f2fc!2sGuesthouse%20Terrabella!5e0!3m2!1sru!2skg!4v1746115674302!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{% trans %}Map of our location{% endtrans %}"></iframe>
+		</section>
+	</main>
 
-    <div class="button">
-        <a href="{{ path('app_home') }}" class="home-link">{% trans %}Return to main page{% endtrans %}</a>
-    </div>
+	<div class="button">
+		<a href="{{ path('app_home') }}" class="home-link">{% trans %}Return to main page{% endtrans %}</a>
+	</div>
 {% endblock %}

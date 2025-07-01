@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
+use App\Form\ResetPasswordForm;
+use App\Form\ResetPasswordRequestForm;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,82 +40,88 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path: '/reset', name: 'app_reset')]
-    public function reset(Request $request, UsersRepository $usersRepository, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
+    //RESET PASSWORD
+    #[Route(path: '/reset-password', name: 'app_reset_password_request')]
+    public function requestResetPassword(Request $request, UsersRepository $usersRepository, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
     {
-        if ($request->isMethod('POST')) {
-            $email = $request->request->get('email');
+        $form = $this->createForm(ResetPasswordRequestForm::class);
+        $form->handleRequest($request);
 
-            // Rechercher l'utilisateur par e-mail
+        if ($form->isSubmitted() && $form->isValid()) {
+            $email = $form->get('email')->getData();
             $user = $usersRepository->findOneBy(['email' => $email]);
 
             if ($user) {
-                // Générer un token unique
                 $token = bin2hex(random_bytes(32));
-                $expiration = new \DateTime('+1 hour'); // Token valide pendant 1 heure
+                $expiration = new \DateTimeImmutable('+1 hour');
 
-                // Mettre à jour l'utilisateur avec le token et son expiration
                 $user->setResetToken($token);
-                $user->setResetTokenExpiration($expiration);
-                $entityManager->persist($user);
+                $user->setResetTokenExpiresAt($expiration);
                 $entityManager->flush();
 
-                // Générer le lien de réinitialisation
-                $resetLink = $this->generateUrl('app_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
+                $resetLink = $this->generateUrl(
+                    'app_reset_password_confirm',
+                    ['token' => $token],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                );
 
-                // Envoyer l'e-mail
                 $emailMessage = (new TemplatedEmail())
-                    ->from('no-reply@yourdomain.com') // Remplacez par votre adresse e-mail
+                    ->from('no-reply@terrabella.kg')
                     ->to($email)
                     ->subject('Réinitialisation de votre mot de passe')
                     ->htmlTemplate('emails/reset_password.html.twig')
                     ->context([
-                        'resetLink' => $resetLink,
                         'user' => $user,
+                        'resetLink' => $resetLink,
                         'expirationTime' => $expiration,
                     ]);
 
                 $mailer->send($emailMessage);
-
-                $this->addFlash('success', 'Un e-mail de réinitialisation a été envoyé à votre adresse.');
+                $this->addFlash('success', 'Un email de réinitialisation a été envoyé.');
             } else {
-                $this->addFlash('error', 'Aucun utilisateur trouvé avec cet e-mail.');
+                $this->addFlash('warning', 'Si cet email existe, un lien de réinitialisation a été envoyé.');
             }
 
-            return $this->redirectToRoute('app_reset');
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('security/reset.html.twig');
+        return $this->render('security/reset_password_request.html.twig', [
+            'form' => $form
+        ]);
     }
 
-    #[Route(path: '/reset/{token}', name: 'app_reset_password')]
-    public function resetPassword(Request $request, string $token, UsersRepository $usersRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
-    {
+    #[Route(path: '/reset-password/{token}', name: 'app_reset_password_confirm')]
+    public function confirmResetPassword(
+        Request $request,
+        string $token,
+        UsersRepository $usersRepository,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $user = $usersRepository->findOneBy(['resetToken' => $token]);
 
-        if (!$user || !$user->getResetTokenExpiration() || new \DateTime() > $user->getResetTokenExpiration()) {
+        if (!$user || $user->getResetTokenExpiresAt() < new \DateTimeImmutable()) {
             $this->addFlash('error', 'Le lien de réinitialisation est invalide ou a expiré.');
-            return $this->redirectToRoute('app_reset');
+            return $this->redirectToRoute('app_reset_password_request');
         }
 
-        if ($request->isMethod('POST')) {
-            $newPassword = $request->request->get('newPassword');
-            if (strlen($newPassword) >= 12 && preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?]).{12,}$/', $newPassword)) {
-                // Utiliser UserPasswordHasherInterface pour encoder le mot de passe
-                $encodedPassword = $passwordHasher->hashPassword($user, $newPassword);
-                $user->setPassword($encodedPassword);
-                $user->setResetToken(null);
-                $user->setResetTokenExpiration(null);
-                $entityManager->flush();
+        $form = $this->createForm(ResetPasswordForm::class);
+        $form->handleRequest($request);
 
-                $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter.');
-                return $this->redirectToRoute('app_login');
-            } else {
-                $this->addFlash('error', 'Le mot de passe doit contenir au moins 12 caractères, une majuscule, une minuscule et un caractère spécial.');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newPassword = $form->get('password')->getData();
+
+            $user->setPassword($passwordHasher->hashPassword($user, $newPassword));
+            $user->setResetToken(null);
+            $user->setResetTokenExpiresAt(null);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès.');
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('security/reset_password.html.twig', [
+        return $this->render('security/reset_password_confirm.html.twig', [
+            'form' => $form->createView(),
             'token' => $token,
         ]);
     }
