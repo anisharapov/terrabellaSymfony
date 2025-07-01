@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
+{% endblock %}
+
+{% block title %}Disconnect{% endblock %}
+
+
+{% block body %}
+<div class="logout-container">
+    <h1>Disconnect</h1>
+    
+    {% if app.user %}
+        <div class="logout-message">
+            <p>Your are connected as: {{ app.user.userIdentifier }}.</p>
+            <p>Do you really want to logout ?</p>
+        </div>
+        
+        <form action="{{ path('app_logout') }}" method="POST">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+            <button type="submit" class="btn btn-danger">Confirmer la déconnexion</button>
+        </form>
+    {% else %}
+        <div class="logout-message">
+            <p>Vous êtes déjà déconnecté.</p>
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

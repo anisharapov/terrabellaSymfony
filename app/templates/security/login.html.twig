@@ -10,7 +10,7 @@
 
 {% block body %}
 	<main>
-		<article>
+		<article class="signup-section">
 			<h3>{% trans %}Login to Your Account{% endtrans %}</h3>
 			<form method="post" action="{{ path('app_login') }}" class="form" id="login-form" novalidate>
 				{% if error %}
@@ -44,10 +44,14 @@
 				</div>
 
 				<div>{% trans %}Don't have an account?{% endtrans %}
-					<a href="{{ path('app_account') }}" class="button-link">{% trans %}Sign up here{% endtrans %}</a>
+					<div>
+						<a href="{{ path('app_account') }}" class="button-link">{% trans %}Sign up here{% endtrans %}</a>
+					</div>
 				</div>
 				<div>{% trans %}Forgot your password?{% endtrans %}
-					<a href="{{ path('app_reset_password_request') }}" class="button-link">{% trans %}Reset it here{% endtrans %}</a>
+					<div>
+						<a href="{{ path('app_reset_password_request') }}" class="button-link">{% trans %}Reset it here{% endtrans %}</a>
+					</div>
 				</div>
 			</form>
 		</main>

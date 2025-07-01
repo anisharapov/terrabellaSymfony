@@ -32,8 +32,10 @@
 				<p>{{ room.description|trans }}</p>
 				<img src="{{ asset('assets/img/' ~ room.image) }}" alt="{{ room.alt|trans }}">
 				<div class="price">
-					<p> {{ room.alt }} {{ room.price }}$
-						
+					<p>
+						{{ room.alt }}
+						{{ room.price }}$
+
 					</p>
 				</div>
 				<div class="button">
@@ -43,37 +45,34 @@
 		{% endfor %}
 	</section>
 
+
 	<!-- About Us Section -->
-	<section class="section">
-		<h2>{% trans %}About Us{% endtrans %}</h2>
-		<img src="{{ asset('assets/img/map1_converted.jpg') }}" alt="{% trans %}Map of Kyrgyzstan{% endtrans %}">
-		<article>
+	<section class="home-content">
+		<article class="room">
+			<h2>{% trans %}About Us{% endtrans %}</h2>
+			<img src="{{ asset('assets/img/map1_converted.jpg') }}" alt="{% trans %}Map of Kyrgyzstan{% endtrans %}">
 			<p>{% trans %}
-				We are a family-run guesthouse located in the heart of Kyrgyzstan. Our mission is to provide a warm and welcoming environment for all our guests. Our guesthouse is surrounded by stunning mountains and beautiful landscapes, making it the perfect place to relax and unwind.
+				We are a family-run guesthouse located in the heart of Kyrgyzstan. Our mission is to provide a warm and welcoming environment for all our guests. Our guesthouse is surrounded by stunning mountains and beautiful landscapes, making it the perfect place to relax and unwind. We take pride in sharing the rich culture and traditions of Kyrgyzstan with our visitors, offering authentic homemade meals and personalized local tours to make your stay unforgettable. Come experience the warmth of our family hospitality and create memories that will last a lifetime.
 				{% endtrans %}
 			</p>
 		</article>
-	</section>
 
-	<!-- About Kyrgyzstan Section -->
-	<section class="section">
-		<h2>{% trans %}About Kyrgyzstan{% endtrans %}</h2>
-		<img src="{{ asset('assets/img/plume livre kgz_converted.jpg') }}" alt="{% trans %}Kyrgyzstan cultural book{% endtrans %}">
-		<article>
+		<!-- About Kyrgyzstan Section -->
+		<article class="room">
+			<h2>{% trans %}About Kyrgyzstan{% endtrans %}</h2>
+			<img src="{{ asset('assets/img/plume livre kgz_converted.jpg') }}" alt="{% trans %}Kyrgyzstan cultural book{% endtrans %}">
 			<p>{% trans %}
 				Kyrgyzstan is a country located in Central Asia, known for its stunning natural beauty, rich culture, and warm hospitality. The country is home to the majestic Tien Shan mountains, pristine lakes, and vast steppes, making it a paradise for outdoor enthusiasts and nature lovers. Kyrgyzstan is also known for its rich cultural heritage, with a blend of nomadic traditions and modern influences. Visitors can experience traditional Kyrgyz hospitality, sample delicious local cuisine, and explore the vibrant culture of this unique country.
 				{% endtrans %}
 			</p>
 		</article>
-	</section>
 
-	<!-- Why Choose This Destination Section -->
-	<section class="section">
-		<h2>{% trans %}Why choose this destination{% endtrans %}</h2>
-		<img src="{{ asset('assets/img/plume Kyrgyzstan_converted.jpg') }}" alt="{% trans %}Kyrgyzstan landscape{% endtrans %}">
-		<article>
+		<!-- Why Choose This Destination Section -->
+		<article class="room">
+			<h2>{% trans %}Why choose this destination{% endtrans %}</h2>
+			<img src="{{ asset('assets/img/plume.jpg') }}" alt="{% trans %}Kyrgyzstan landscape{% endtrans %}">
 			<p>{% trans %}
-				Kyrgyzstan offers a unique blend of adventure and tranquility. Whether you're hiking in the Tien Shan mountains, horseback riding across vast steppes, or exploring UNESCO World Heritage sites like the ancient Silk Road cities of Osh and Bishkek, this destination has something for everyone. Experience warm Kyrgyz hospitality and breathtaking scenery at Guesthouse Terrabella.
+				Kyrgyzstan offers a unique blend of adventure and tranquility. Whether you're hiking in the Tien Shan mountains, horseback riding across vast steppes, or exploring UNESCO World Heritage sites like the ancient Silk Road cities of Osh and Bishkek, this destination has something for everyone. At Guesthouse Terrabella, we provide cozy accommodations and heartfelt service to make your journey truly special. Experience warm Kyrgyz hospitality and breathtaking scenery while creating lasting memories with us.
 				{% endtrans %}</p>
 		</article>
 	</section>
