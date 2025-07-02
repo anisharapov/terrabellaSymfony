@@ -1,78 +1,111 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Compte{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% block title %}Mon Compte
 {% endblock %}
 
+
 {% block javascripts %}
-    <script src="{{ asset('js/client.js') }}" defer></script>
+	<script src="{{ asset('js/client.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
-    <header>
-    </header>
-    
-    <div class="account-container">
-        <aside class="account-sidebar">
-            <img src="{{ asset(app.user.avatar ?? 'assets/img/avatar2.png') }}" alt="Avatar" class="user-avatar">
-            <h2>{{ app.user.firstname }} {{ app.user.lastname }}</h2>
-            <p>Membre depuis {{ app.user.createdAt|date('d/m/Y') }}</p>
-            
-            <nav class="account-menu">
-                <ul>
-                    <li><a href="{{ path('app_client') }}" class="{{ app.current_route == 'app_client' ? 'active' }}">Tableau de bord</a></li>
-                    
-                    <li><a href="{{ path('app_account') }}" class="{{ app.current_route starts with 'app_account' ? 'active' }}">Mon profil</a></li>
-                    
-                    {# Section Mot de passe #}
-                    <li><a href="{{ path('app_reset_password_request') }}" class="{{ app.current_route starts with 'app_reset_password_request' ? 'active' }}">Changer mon mot de passe</a></li>
-                    
-                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-                </ul>
-            </nav>
-        </aside>
-        
-        <main class="account-content">
-            <h2 class="section-title">Tableau de bord</h2>
-            
-            <section class="user-info">
-                <h2>Informations personnelles</h2>
-                <p><strong>Nom :</strong> {{ app.user.lastname }}</p>
-                <p><strong>Prénom :</strong> {{ app.user.firstname }}</p>
-                <p><strong>Email :</strong> {{ app.user.email }}</p>
-                <p><strong>Téléphone :</strong> {{ app.user.phone ?? 'Non renseigné' }}</p>
-                <a href="{{ path('app_account') }}" class="btn btn-primary">Modifier mon profil</a>
-            </section>
-            
-            {# Section Réservations - Version améliorée #}
-            <section class="reservations">
-                <h2 class="section-title">Mes dernières réservations</h2>
-                
-                {% if bookings is defined and bookings|length > 0 %}
-                    {% for booking in bookings|slice(0, 2) %}
-                        <div class="reservation-card">
-                            <div>
-                                <h3>{{ booking.room.name }}</h3>
-                                <p>Du {{ booking.startDate|date('d/m/Y') }} au {{ booking.endDate|date('d/m/Y') }}</p>
-                                <p>Prix total : {{ booking.totalPrice|format_currency('EUR') }}</p>
-                                <p>Statut : {{ booking.status|capitalize }}</p>
-                            </div>
-                            <div>
-                                <a href="{{ path('app_book', {id: booking.id}) }}" class="btn btn-primary">Détails</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    
-                    {% if bookings|length > 2 %}
-                        <a href="{{ path('app_bookings') }}" class="btn btn-primary">Voir toutes mes réservations ({{ bookings|length }})</a>
-                    {% endif %}
-                {% else %}
-                    <p class="no-reservations">Aucune réservation récente</p>
-                    <a href="{{ path('app_home') }}" class="btn btn-primary">Réserver maintenant</a>
-                {% endif %}
-            </section>
-        </main>
-    </div>
+	<div class="account-container">
+		<aside class="account-sidebar">
+			<img src="{{ asset(app.user.avatar ?? 'assets/img/avatar2.png') }}" alt="Avatar" class="user-avatar">
+			<h2>{{ app.user.firstname }}
+				{{ app.user.lastname }}</h2>
+			<p>Membre depuis
+				{{ app.user.createdAt|date('d/m/Y') }}</p>
+
+			<nav class="account-menu">
+				<ul>
+					<li>
+						<a href="{{ path('app_client') }}" class="{{ app.current_route == 'app_client' ? 'active' }}">Tableau de bord</a>
+					</li>
+
+					<li>
+						<a href="{{ path('app_account') }}" class="{{ app.current_route starts with 'app_account' ? 'active' }}">Mon profil</a>
+					</li>
+
+					{# Section Mot de passe #}
+					<li>
+						<a href="{{ path('app_reset_password_request') }}" class="{{ app.current_route starts with 'app_reset_password_request' ? 'active' }}">Changer mon mot de passe</a>
+					</li>
+
+					<li>
+						<a href="{{ path('app_logout') }}">Déconnexion</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+		<main class="account-content">
+			<h2 class="section-title">Tableau de bord</h2>
+
+			<section class="user-info">
+				<h2>Informations personnelles</h2>
+				<p>
+					<strong>Nom :</strong>
+					{{ app.user.lastname }}</p>
+				<p>
+					<strong>Prénom :</strong>
+					{{ app.user.firstname }}</p>
+				<p>
+					<strong>Email :</strong>
+					{{ app.user.email }}</p>
+				<a href="{{ path('app_account') }}" class="btn btn-primary">Modifier mon profil</a>
+			</section>
+
+			{# Section Réservations - Version améliorée #}
+			<section class="reservations">
+				<h2 class="section-title">Mes dernières réservations</h2>
+
+				{% if app.user.bookings is not empty %}
+					{% for booking in app.user.bookings|slice(0, 5) %}
+						<div class="reservation-card">
+							<div class="reservation-details">
+								<h3>Réservation #{{ booking.reservationNumber }}</h3>
+								<p>
+									<strong>Date de création :</strong>
+									{{ booking.bookedAt|date('d/m/Y H:i') }}</p>
+								<p>
+									<strong>Statut :</strong>
+									{% if booking.reservationStatus %}
+										<span class="status-confirmed">Confirmée</span>
+									{% else %}
+										<span class="status-pending">En attente</span>
+									{% endif %}
+								</p>
+								<p>
+									<strong>Téléphone :</strong>
+									{{ booking.phoneNumber }}</p>
+
+								{# Affichage des services associés #}
+								{% if booking.bookingsServices is not empty %}
+									<div class="reservation-services">
+										<h4>Services inclus :</h4>
+										<ul>
+											{% for service in booking.bookingsServices %}
+												<li>{{ service.service.name }}
+													-
+													{{ service.price|format_currency('EUR') }}</li>
+											{% endfor %}
+										</ul>
+									</div>
+								{% endif %}
+							</div>
+							<div class="reservation-actions">
+								<a href="{{ path('app_book', {id: booking.id}) }}" class="btn btn-primary">Détails</a>
+								{% if not booking.reservationStatus %}
+									<a href="{{ path('app_confirm_booking', {id: booking.id}) }}" class="btn btn-secondary">Confirmer</a>
+								{% endif %}
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<p class="no-reservations">Aucune réservation trouvée</p>
+				{% endif %}
+			</section>
+		</main>
+	</div>
 {% endblock %}

@@ -57,7 +57,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $resetTokenExpiresAt = null;
 
-    #[ORM\OneToMany(targetEntity: Bookings::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Bookings::class, mappedBy: 'users')]
     private Collection $bookings;
 
     public function __construct()
@@ -194,6 +194,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             $this->resetTokenExpiresAt > new \DateTimeImmutable();
     }
 
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
     /**
      * Adds a booking to this user.
      * 
@@ -210,7 +215,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->bookings->contains($booking)) {
             $this->bookings->add($booking);
             // Set the owning side of the relation
-            $booking->setUser($this);
+            $booking->setUsers($this);
         }
 
         return $this;
@@ -231,8 +236,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         if ($this->bookings->removeElement($booking)) {
             // Clean up the owning side if needed
-            if ($booking->getUser() === $this) {
-                $booking->setUser(null);
+            if ($booking->getUsers() === $this) {
+                $booking->setUsers(null);
             }
         }
 

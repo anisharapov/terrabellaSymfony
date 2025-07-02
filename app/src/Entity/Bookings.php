@@ -34,6 +34,9 @@ class Bookings
     #[ORM\OneToMany(targetEntity: BookingsServices::class, mappedBy: 'bookings')]
     private Collection $bookingsServices;
 
+    #[ORM\Column(length: 50)]
+    private ?string $phoneNumber = null;
+
     public function __construct()
     {
         $this->bookingsServices = new ArrayCollection();
@@ -118,6 +121,18 @@ class Bookings
                 $bookingsService->setBookings(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
