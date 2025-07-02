@@ -55,4 +55,11 @@ final class AccountController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+    #[Route('/client', name: 'app_client')]
+    public function client(): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('account/client.html.twig');
+    }
 }

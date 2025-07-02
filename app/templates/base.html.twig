@@ -27,12 +27,19 @@
 			</button>
 			<div class="header-controls">
 				<div class="left-controls">
-					<button id="darkModeToggle" class="dark-mode-btn">☾ <span>Dark mode</span></button>
+					<button id="darkModeToggle" class="dark-mode-btn">☾
+						<span>Dark mode</span>
+					</button>
 					<select id="languageSelect" onchange="changeLanguage()" aria-label="Select language">
 						<option value="en" {{ app.request.locale == 'en' ? 'selected' }}>🇬🇧</option>
 						<option value="fr" {{ app.request.locale == 'fr' ? 'selected' }}>🇫🇷</option>
 						<option value="ru" {{ app.request.locale == 'ru' ? 'selected' }}>🇷🇺</option>
 					</select>
+					{% if app.user %}
+						<a href="{{ path('app_client') }}">
+							<img src="{{ asset('assets/img/avatar2.png') }}" alt="My account" class="account-icon">
+						</a>
+					{% endif %}
 				</div>
 				<div class="right-controls">
 					<a href="{{ path('app_cart') }}" class="cart-icon" aria-label="View cart">

@@ -66,7 +66,7 @@ class SecurityController extends AbstractController
                 );
 
                 $emailMessage = (new TemplatedEmail())
-                    ->from('no-reply@terrabella.kg')
+                    ->from('admin@terrabella.kg')
                     ->to($email)
                     ->subject('Réinitialisation de votre mot de passe')
                     ->htmlTemplate('emails/reset_password.html.twig')
