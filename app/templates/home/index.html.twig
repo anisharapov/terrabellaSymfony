@@ -10,16 +10,14 @@
 {% endblock %}
 
 {% block body %}
-	<section class="section">
-		<article class="carroussel">
-			<div class="carroussel-container">
-				{% for item in carousel_items %}
-					<div class="carroussel-item">
-						<h3>{{ item.title|trans }}</h3>
-						<img src="{{ asset('assets/' ~ item.image) }}" alt="{{ item.alt|trans }}">
-					</div>
-				{% endfor %}
-			</div>
+	<section class="carroussel">
+		<article class="carroussel-container">
+			{% for item in carousel_items %}
+				<div class="carroussel-item">
+					<h3>{{ item.title|trans }}</h3>
+					<img src="{{ asset('assets/' ~ item.image) }}" alt="{{ item.alt|trans }}">
+				</div>
+			{% endfor %}
 		</article>
 	</section>
 
@@ -35,7 +33,6 @@
 					<p>
 						{{ room.alt }}
 						{{ room.price }}$
-
 					</p>
 				</div>
 				<div class="button">
